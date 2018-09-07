@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/border2"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <RelativeLayout
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/imgFood"
+            android:layout_width="170dp"
+            android:layout_height="170dp" />
+
+        <TextView
+            android:id="@+id/tvFavorite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/imgFood"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:clickable="true"
+            android:text="@string/fa_heart_o"
+            android:textColor="@color/lovedefault"
+            android:textSize="15pt" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:maxLines="1"
+            android:id="@+id/tvNameFood"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tên món"
+            android:textColor="#555555"
+            android:textSize="8pt"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:maxLines="1"
+                android:id="@+id/tvAddress"
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="Địa chỉ"
+                android:textColor="#555555"
+                android:textSize="6pt" />
+
+            <TextView
+                android:layout_marginLeft="5dp"
+                android:id="@+id/tvPrice"
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Giá"
+                android:textColor="#1c1fca"
+                android:textSize="6pt"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:textColor="@color/black2"
+                android:id="@+id/tvIconLike"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/fa_thumbs_up"
+                android:textSize="8pt" />
+
+            <TextView
+                android:textColor="@color/black2"
+                android:id="@+id/tvTotalLike"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="6"
+                android:textSize="8pt" />
+
+            <TextView
+                android:textColor="@color/black2"
+                android:id="@+id/tvIconComment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/fa_commenting_o"
+                android:textSize="8pt" />
+
+            <TextView
+                android:textColor="@color/black2"
+                android:id="@+id/tvTotalCmt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="10"
+                android:text="4"
+                android:textSize="8pt" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

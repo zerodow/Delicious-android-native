@@ -1,0 +1,45 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.admin.appquanan.fragment.FavoriteFragment">
+
+    <com.etsy.android.grid.StaggeredGridView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/grid_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#EFEFEB"
+        app:column_count="2"
+        app:item_margin="10dp">
+
+    </com.etsy.android.grid.StaggeredGridView>
+
+    <LinearLayout
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:visibility="invisible"
+            android:layout_gravity="center"
+            android:id="@+id/imgHeart"
+            android:src="@drawable/star2"
+            android:layout_width="150dp"
+            android:layout_height="150dp" />
+        <TextView
+            android:visibility="invisible"
+            android:layout_gravity="center"
+            android:layout_below="@id/imgAddress"
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#f15677"
+            android:text="Chọn món ăn ưa thích nào"
+            android:textSize="14pt" />
+
+    </LinearLayout>
+
+</RelativeLayout>

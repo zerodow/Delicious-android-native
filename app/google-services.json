@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "246467771471",
+    "firebase_url": "https://appquanan.firebaseio.com",
+    "project_id": "appquanan",
+    "storage_bucket": "appquanan.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:246467771471:android:855e65040087bfbf",
+        "android_client_info": {
+          "package_name": "com.example.admin.appquanan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "246467771471-ggquogom1mja4qqu08i3rn6g6423cqi1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.admin.appquanan",
+            "certificate_hash": "19999811b5064a4d84a37c23be2cf2083f1f23d4"
+          }
+        },
+        {
+          "client_id": "246467771471-r3apnp07ik422448npf0hefifn9bll35.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBizOT4BlEKP8pKxFOnI-m1P8yn2RGCSFI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "246467771471-r3apnp07ik422448npf0hefifn9bll35.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

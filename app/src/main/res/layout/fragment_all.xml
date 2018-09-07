@@ -1,0 +1,29 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EFEFEB"
+    tools:context="com.example.admin.appquanan.fragment.AllFragment">
+
+    <com.etsy.android.grid.StaggeredGridView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/grid_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#EFEFEB"
+        app:column_count="2"
+        app:item_margin="10dp">
+
+    </com.etsy.android.grid.StaggeredGridView>
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:text="Vui lòng vào menu -> Cập nhật món ăn để cập nhật thêm món ăn "
+        android:textSize="15pt" />
+
+</RelativeLayout>

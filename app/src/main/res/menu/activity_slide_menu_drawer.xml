@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group>
+        <item
+            android:id="@+id/nav_profile"
+            android:icon="@drawable/user"
+            android:title="Tài khoản"></item>
+
+    </group>
+
+    <item android:title="Món ăn theo địa điểm"
+        android:id="@+id/nav_district"
+        android:icon="@drawable/place">
+
+    </item>
+
+    <item android:title="Settings">
+        <menu>
+            <item
+                android:id="@+id/nav_morefood"
+                android:icon="@drawable/morefood"
+                android:title="Cập nhật món ăn" />
+            <item
+                android:id="@+id/nav_about"
+                android:icon="@drawable/about"
+                android:title="Thông tin ứng dụng" />
+        </menu>
+    </item>
+
+    <item android:title="Đăng xuất"
+        android:id="@+id/nav_logout"
+        android:icon="@drawable/logout"></item>
+
+</menu>
