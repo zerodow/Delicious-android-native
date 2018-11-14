@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/AppQuanAn.iml" filepath="$PROJECT_DIR$/AppQuanAn.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Delicious-android.iml" filepath="$PROJECT_DIR$/Delicious-android.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
