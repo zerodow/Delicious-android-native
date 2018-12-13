@@ -14,6 +14,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.SearchView;
 
@@ -65,7 +66,6 @@ public class SlideMenu extends AppCompatActivity
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.setTabsFromPagerAdapter(adapter);
 
-
     }
 
     private void getData() {
@@ -75,6 +75,14 @@ public class SlideMenu extends AppCompatActivity
 
         user = (User) bundle.getSerializable("USER");
         Log.d("TAG","ádads");
+
+        Menu menuNav = navigationView.getMenu();
+        MenuItem item = menuNav.findItem(R.id.nav_morefood);
+        if(user.getUsername() == "admin123"){
+            item.setVisible(true);
+        } else {
+            item.setVisible(false);
+        }
     }
 
     @Override
