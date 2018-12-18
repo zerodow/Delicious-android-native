@@ -27,7 +27,7 @@ import java.util.List;
 
 public class LogInActivity extends AppCompatActivity {
     private EditText etUserName, etPassword;
-    private Button btnLogin;
+    private Button btnLogin,btnQuickLogin;
     private int i = 0;
     private User user;
     private List<User> lstUser;
@@ -102,7 +102,22 @@ public class LogInActivity extends AppCompatActivity {
             }
         });
 
-
+        btnQuickLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                user = new User();
+                user.setIdUser(0);
+                user.setNickName(null);
+                user.setUsername(null);
+                user.setPassword(null);
+                user.setRoleId(3);
+                Intent intent = new Intent(LogInActivity.this, SlideMenu.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("USER", user);
+                intent.putExtra("USERLOGIN", bundle);
+                startActivity(intent);
+            }
+        });
     }
 
     private int check(List<User> users, String name, String password) {
@@ -138,6 +153,7 @@ public class LogInActivity extends AppCompatActivity {
         etUserName = (EditText) findViewById(R.id.etUserName);
         etPassword = (EditText) findViewById(R.id.etPassword);
         btnLogin = (Button) findViewById(R.id.btnLogin);
+        btnQuickLogin= (Button) findViewById(R.id.btnQuickLogin);
         mDatabase = FirebaseDatabase.getInstance().getReference();
         lstUser = new ArrayList<User>();
     }

@@ -106,8 +106,8 @@ public class AllFragment extends Fragment {
 
         //set adapter cho list food
         adapter = new FoodAdapter(getActivity().getApplicationContext(), R.layout.item_gridview, lstFood);
+        adapter.setUser(user);
         sgrFood.setAdapter(adapter);
-
     }
 
     private void getData() {

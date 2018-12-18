@@ -1,6 +1,8 @@
 package com.example.admin.appquanan.adapter;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Typeface;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
@@ -15,6 +17,7 @@ import android.widget.TextView;
 
 import com.example.admin.appquanan.R;
 import com.example.admin.appquanan.model.Food;
+import com.example.admin.appquanan.model.User;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
@@ -33,6 +36,7 @@ public class FoodAdapter extends ArrayAdapter<Food> {
     private DatabaseReference mDatabase;
     private Context context;
     private int resource;
+    private User user;
     private List<Food> arrFood;
     public FoodAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List<Food> objects) {
         super(context, resource, objects);
@@ -44,6 +48,9 @@ public class FoodAdapter extends ArrayAdapter<Food> {
 
     private boolean checkLove ;
 
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     @NonNull
     @Override
@@ -62,7 +69,11 @@ public class FoodAdapter extends ArrayAdapter<Food> {
             viewHolder.tvIconLike = (TextView) convertView.findViewById(R.id.tvIconLike);
             viewHolder.tvIconCmt = (TextView) convertView.findViewById(R.id.tvIconComment);
             viewHolder.tvFavorite = (TextView) convertView.findViewById(R.id.tvFavorite);
-
+            if(user.getRoleId() == 3){
+                viewHolder.tvFavorite.setVisibility(View.INVISIBLE);
+            } else {
+                viewHolder.tvFavorite.setVisibility(View.VISIBLE);
+            }
             convertView.setTag(viewHolder);
         }else{
             viewHolder = (ViewHolder) convertView.getTag();
@@ -81,7 +92,8 @@ public class FoodAdapter extends ArrayAdapter<Food> {
 
         viewHolder.tvIconCmt.setTypeface(face);
 
-        if(food.getCheckLike() == 1){
+
+        if(food.getCheckLike() == 1 && !(user.getRoleId() == 3)){
             viewHolder.tvIconLike.setTypeface(face);
             viewHolder.tvIconLike.setTextColor(ContextCompat.getColor(context,R.color.checklike));
         } else{
@@ -107,15 +119,15 @@ public class FoodAdapter extends ArrayAdapter<Food> {
         viewHolder.tvFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Food food = arrFood.get(position);
-                if(food.getLove()==0){
-                    mDatabase = FirebaseDatabase.getInstance().getReference().child("food").child(String.valueOf(food.getId()));
-                    mDatabase.child("love").setValue(1);
-                } else {
-                    mDatabase = FirebaseDatabase.getInstance().getReference().child("food").child(String.valueOf(food.getId()));
-                    mDatabase.child("love").setValue(0);
+                    Food food = arrFood.get(position);
+                    if(food.getLove()==0){
+                        mDatabase = FirebaseDatabase.getInstance().getReference().child("food").child(String.valueOf(food.getId()));
+                        mDatabase.child("love").setValue(1);
+                    } else {
+                        mDatabase = FirebaseDatabase.getInstance().getReference().child("food").child(String.valueOf(food.getId()));
+                        mDatabase.child("love").setValue(0);
+                    }
                 }
-            }
         });
 
         return convertView;

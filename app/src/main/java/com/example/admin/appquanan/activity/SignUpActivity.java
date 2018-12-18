@@ -54,6 +54,7 @@ public class SignUpActivity extends AppCompatActivity {
                     user.setNickName(etName.getText().toString());
                     user.setUsername(username);
                     user.setPassword(password);
+                    user.setRoleId(2);
 
                     Random rand = new Random();
                     user.setIdUser(rand.nextInt(1000000));//1 tỷ;

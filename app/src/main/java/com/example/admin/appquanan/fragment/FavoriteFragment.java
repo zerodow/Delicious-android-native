@@ -38,11 +38,12 @@ import java.util.List;
 public class FavoriteFragment extends Fragment {
 
     private StaggeredGridView sgrFood;
+    private boolean isQuickLogin = true;
     private List<Food> lstFood;
     private FoodAdapter adapter;
     private SearchView searchView;
     private DatabaseReference mDatabase;
-    private TextView tvTitle;
+    private TextView tvTitle,tvQuickLogin;
     private User user;
     private ImageView imgHeart;
 
@@ -53,54 +54,58 @@ public class FavoriteFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        View view = inflater.inflate(R.layout.fragment_favorite, container, false);
-
         getData();
+        View view = inflater.inflate(R.layout.fragment_favorite, container, false);
 
         setWidget(view);
 
-        mDatabase.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                lstFood.clear();
-                for (DataSnapshot data : dataSnapshot.getChildren()) {
-                    Food food = data.getValue(Food.class);
-                    if (food.getLove() == 1) {
-                        lstFood.add(food);
+        if(!isQuickLogin){
+            mDatabase.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    lstFood.clear();
+                    for (DataSnapshot data : dataSnapshot.getChildren()) {
+                        Food food = data.getValue(Food.class);
+                        if (food.getLove() == 1) {
+                            lstFood.add(food);
+                        }
                     }
+                    adapter.notifyDataSetChanged();
+
+                    check();
                 }
-                adapter.notifyDataSetChanged();
 
-                check();
-            }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+                }
+            });
 
-            }
-        });
+            sgrFood.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    Intent intent = new Intent(getActivity().getApplicationContext(), ItemActivity.class);
+                    Bundle bundle1 = new Bundle();
+                    Bundle bundle2 = new Bundle();
+                    Food food = lstFood.get(i);
+                    bundle1.putSerializable("FOOD", food);
+                    intent.putExtra("BUNDLE1", bundle1);
 
-        sgrFood.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(getActivity().getApplicationContext(), ItemActivity.class);
-                Bundle bundle1 = new Bundle();
-                Bundle bundle2 = new Bundle();
-                Food food = lstFood.get(i);
-                bundle1.putSerializable("FOOD", food);
-                intent.putExtra("BUNDLE1", bundle1);
-
-                bundle2.putSerializable("USER", user);
-                intent.putExtra("BUNDLE2", bundle2);
-                startActivity(intent);
-            }
-        });
+                    bundle2.putSerializable("USER", user);
+                    intent.putExtra("BUNDLE2", bundle2);
+                    startActivity(intent);
+                }
+            });
+        }
 
         return view;
     }
 
     private void check() {
+        if(user.getRoleId() == 3){
+            tvQuickLogin.setVisibility(View.VISIBLE);
+            return;
+        }
         if(lstFood.size() == 0){
             imgHeart.setVisibility(View.VISIBLE);
             tvTitle.setVisibility(View.VISIBLE);
@@ -111,24 +116,31 @@ public class FavoriteFragment extends Fragment {
     }
 
     private void setWidget(View view) {
-        tvTitle = (TextView) view.findViewById(R.id.tvTitle);
+            tvQuickLogin = (TextView) view.findViewById(R.id.tvQuickLogin);
+            tvTitle = (TextView) view.findViewById(R.id.tvTitle);
 
-        imgHeart = (ImageView) view.findViewById(R.id.imgHeart);
-        sgrFood = (StaggeredGridView) view.findViewById(R.id.grid_view);
+            imgHeart = (ImageView) view.findViewById(R.id.imgHeart);
+            sgrFood = (StaggeredGridView) view.findViewById(R.id.grid_view);
 
-        lstFood = new ArrayList<Food>();
+            lstFood = new ArrayList<Food>();
 
-        adapter = new FoodAdapter(getActivity().getApplicationContext(), R.layout.item_gridview, lstFood);
+            adapter = new FoodAdapter(getActivity().getApplicationContext(), R.layout.item_gridview, lstFood);
+            adapter.setUser(user);
 
-        sgrFood.setAdapter(adapter);
+            sgrFood.setAdapter(adapter);
 
-        check();
+            check();
 
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("food");
+            mDatabase = FirebaseDatabase.getInstance().getReference().child("food");
+
+
     }
 
     private void getData() {
         user = (User) getArguments().getSerializable("USERACCOUNT");
+        if(user.getRoleId() == 3){
+            isQuickLogin = true;
+        } else {isQuickLogin = false;}
     }
 
     public void doFilter(String name) {

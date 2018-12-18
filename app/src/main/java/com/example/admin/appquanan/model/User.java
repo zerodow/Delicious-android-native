@@ -11,15 +11,17 @@ public class User implements Serializable{
     private String nickName;
     private String username;
     private String password;
+    private int roleId;
 
     public User() {
     }
 
-    public User(int idUser, String nickName, String username, String password) {
+    public User(int idUser, String nickName, String username, String password,int roleId) {
         this.idUser = idUser;
         this.nickName = nickName;
         this.username = username;
         this.password = password;
+        this.roleId = roleId;
     }
 
     public String getNickName() {
@@ -52,5 +54,13 @@ public class User implements Serializable{
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public int getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(int roleId) {
+        this.roleId = roleId;
     }
 }

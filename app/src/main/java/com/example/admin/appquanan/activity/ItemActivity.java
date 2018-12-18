@@ -1,5 +1,8 @@
 package com.example.admin.appquanan.activity;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v4.content.ContextCompat;
@@ -30,6 +33,7 @@ public class ItemActivity extends AppCompatActivity {
     private boolean checkLike;
     private User user;
     private DatabaseReference mDatabase;
+    private Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,13 +65,17 @@ public class ItemActivity extends AppCompatActivity {
         tvIconLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int like = food.getTotalLike();
-                if(food.getCheckLike() == 0){
-                    mDatabase.child("checkLike").setValue(1);
-                    mDatabase.child("totalLike").setValue(like+1);
+                if(user.getRoleId() == 3){
+                    showAlertDialog();
                 } else {
-                    mDatabase.child("checkLike").setValue(0);
-                    mDatabase.child("totalLike").setValue(like-1);
+                    int like = food.getTotalLike();
+                    if(food.getCheckLike() == 0){
+                        mDatabase.child("checkLike").setValue(1);
+                        mDatabase.child("totalLike").setValue(like+1);
+                    } else {
+                        mDatabase.child("checkLike").setValue(0);
+                        mDatabase.child("totalLike").setValue(like-1);
+                    }
                 }
             }
         });
@@ -75,18 +83,22 @@ public class ItemActivity extends AppCompatActivity {
         tvIconCmt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ItemActivity.this, CmtActivity.class);
+                if(user.getRoleId() == 3){
+                    showAlertDialog();
+                } else{
+                    Intent intent = new Intent(ItemActivity.this, CmtActivity.class);
 
-                Bundle bundle1 = new Bundle();
-                Bundle bundle2 = new Bundle();
+                    Bundle bundle1 = new Bundle();
+                    Bundle bundle2 = new Bundle();
 
-                bundle1.putSerializable("FOOD", food);
-                intent.putExtra("BUNDLE1", bundle1);
+                    bundle1.putSerializable("FOOD", food);
+                    intent.putExtra("BUNDLE1", bundle1);
 
-                bundle2.putSerializable("USER", user);
-                intent.putExtra("BUNDLE2",bundle2);
+                    bundle2.putSerializable("USER", user);
+                    intent.putExtra("BUNDLE2",bundle2);
 
-                startActivity(intent);
+                    startActivity(intent);
+                }
             }
         });
     }
@@ -98,12 +110,12 @@ public class ItemActivity extends AppCompatActivity {
         //lấy ra food tương ứng
         food = (Food) bundle1.getSerializable("FOOD");
 
-        showDetail(food);
-
         Bundle bundle2 = intent.getBundleExtra("BUNDLE2");
 
         //lấy ra id của người đăng nhập
         user = (User) bundle2.getSerializable("USER");
+
+        showDetail(food);
 
         mDatabase = FirebaseDatabase.getInstance().getReference().child("food").child(String.valueOf(food.getId()));
     }
@@ -117,7 +129,7 @@ public class ItemActivity extends AppCompatActivity {
         tvTotalCmt.setText("" + food.getTotalCmt());
         tvTotalLike.setText("" + food.getTotalLike());
         tvIconCmt.setTypeface(face);
-        if (food.getCheckLike() == 0) {
+        if (food.getCheckLike() == 0 || user.getRoleId() == 3) {
             tvIconLike.setTypeface(face);
             tvIconLike.setTextColor(ContextCompat.getColor(ItemActivity.this,R.color.white));
             checkLike = false;
@@ -139,6 +151,21 @@ public class ItemActivity extends AppCompatActivity {
         tvTotalLike = (TextView) findViewById(R.id.tvTotalLike);
         tvTitleFood = (TextView) findViewById(R.id.tvTitleFood);
         imgFood = (ImageView) findViewById(R.id.imgFood);
+    }
+
+    public void showAlertDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Không thể sử dụng chức năng này");
+        builder.setMessage("Vui lòng đăng nhập để sử dụng chức năng này");
+        builder.setCancelable(false);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
 
     }
 }

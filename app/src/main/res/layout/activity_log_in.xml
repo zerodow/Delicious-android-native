@@ -54,11 +54,21 @@
             android:layout_height="wrap_content" />
 
         <Button
+            android:textColor="@color/white"
             android:enabled="false"
             android:layout_marginTop="20dp"
             android:background="#CC1D1D"
             android:id="@+id/btnLogin"
             android:text="Login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:textColor="@color/white"
+            android:layout_marginTop="20dp"
+            android:background="#CC1D1D"
+            android:id="@+id/btnQuickLogin"
+            android:text="Quick Login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 

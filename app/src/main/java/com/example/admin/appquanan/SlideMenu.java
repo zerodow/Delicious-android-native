@@ -78,10 +78,16 @@ public class SlideMenu extends AppCompatActivity
 
         Menu menuNav = navigationView.getMenu();
         MenuItem item = menuNav.findItem(R.id.nav_morefood);
-        if(user.getUsername() == "admin123"){
+        MenuItem item2 = menuNav.findItem(R.id.nav_logout);
+        //neu la admin thi moi hien thi menu cap nhat
+        if(user.getRoleId() == 1){
             item.setVisible(true);
         } else {
             item.setVisible(false);
+        }
+
+        if(user.getRoleId() == 3){
+            item2.setTitle("Đăng nhập");
         }
     }
 
@@ -104,19 +110,27 @@ public class SlideMenu extends AppCompatActivity
 
         switch (id) {
             case R.id.nav_profile: {
-                Intent intent = new Intent(SlideMenu.this, AccountActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("USER", user);
-                intent.putExtra("ACCOUNT", bundle);
-                startActivity(intent);
+                if(user.getRoleId() == 3){
+                    showAlertDialog2();
+                } else {
+                    Intent intent = new Intent(SlideMenu.this, AccountActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("USER", user);
+                    intent.putExtra("ACCOUNT", bundle);
+                    startActivity(intent);
+                }
                 break;
             }
             case R.id.nav_district: {
-                Intent intent = new Intent(SlideMenu.this, DistrictActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("USER", user);
-                intent.putExtra("USERLOGIN", bundle);
-                startActivity(intent);
+                if(user.getRoleId() == 3){
+                    showAlertDialog2();
+                } else {
+                    Intent intent = new Intent(SlideMenu.this, DistrictActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("USER", user);
+                    intent.putExtra("USERLOGIN", bundle);
+                    startActivity(intent);
+                }
                 break;
             }
 
@@ -143,17 +157,37 @@ public class SlideMenu extends AppCompatActivity
     }
 
     public void showAlertDialog() {
+        if(user.getRoleId() ==3 ){
+            finish();
+        } else {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Đăng xuất");
+            builder.setMessage("Bạn có muốn đăng xuất không?");
+            builder.setCancelable(false);
+            builder.setPositiveButton("Đồng ý", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    finish();
+                }
+            });
+            builder.setNegativeButton("Quay lại", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.dismiss();
+                }
+            });
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
+        }
+    }
+
+
+    public void showAlertDialog2(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Đăng xuất");
-        builder.setMessage("Bạn có muốn đăng xuất không?");
+        builder.setTitle("Không thể sử dụng chức năng này");
+        builder.setMessage("Vui lòng đăng nhập để sử dụng chức năng này");
         builder.setCancelable(false);
-        builder.setPositiveButton("Đồng ý", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                finish();
-            }
-        });
-        builder.setNegativeButton("Quay lại", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 dialogInterface.dismiss();
